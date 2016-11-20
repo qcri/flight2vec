@@ -22,6 +22,7 @@ import sys
 
 import os
 
+PORT = os.environ['flight2vec_PORT']
 
 def log(msg):
 	from datetime import datetime
@@ -34,7 +35,6 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
-app.config['SECRET_KEY'] = "hOj33242fdsadf23d98972"
 app.config["APPLICATION_ROOT"] = "/"
 sessionsecret = id_generator(size=10)
 
@@ -108,4 +108,4 @@ class LoginForm(Form):
 	submit = SubmitField('Login')
 
 if __name__ == '__main__':
-	app.run(debug=False, host= '0.0.0.0', port=5062)
+	app.run(debug=False, host= '0.0.0.0', port=PORT)
