@@ -48,7 +48,7 @@ dictionary['exception']='Not enough data to find similar entities.'
 
 
 def filter_codes(text):
-	db = pymysql.connect(host='localhost',user='boeing',passwd='boeing001',db='boeing')
+	db = pymysql.connect(host=DBHOST,user=DBUSER,passwd=DBPASS,db=DBNAME)
 	c=db.cursor()
 	query = """SELECT FDE_CODE as codice,`FDE Text` as descrizione FROM newdata where FDE_CODE like '"""  + text + """%' group by FDE_CODE LIMIT 500
 	UNION
