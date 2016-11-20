@@ -1,0 +1,95 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="{{url_for('.static', filename='jquery.min.js')}}"></script>
+  <script src="{{url_for('.static', filename='jquery-ui.js')}}"></script>
+  <script src="{{url_for('.static', filename='jquery.jscroll.min.js')}}"></script>
+  <script src="{{url_for('.static', filename='bootstrap.min.js')}}"></script>
+  <link rel="stylesheet" href="{{url_for('.static', filename='bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('.static', filename='jquery-ui.css')}}">
+
+  <title>Flight2Vec</title>
+</head>
+
+<body>
+
+
+        <div class="navbar navbar-inverse" role="navigation">
+            <a class="navbar-brand" href="{{url_for('index')}}" style="text-decoration:underline;">Flight2Vec</a>
+            <div class="navbar-nav">
+            <a id="helpbtn" class="btn btn-default navbar-btn" href="#" role="button" onclick="bootbox.alert('<b>Instructions:</b> start writing a MMSG (Mantainance Message or an FDE (Flight Deck Effect). Launch the query to get the similar MMSG and FDEs for the embedding features.');">Help</a>
+            </div>
+        </div>
+
+
+    <div class="container">
+
+
+
+
+        <div class="row">
+         <div class="panel-body" >
+            <div style="width: 30%; float:left; margin-top: 6px;">
+              <span><i>Select an FDE or a MMSG</i></span>
+            </div>
+
+            <div class="input-group" style="width: 70%;">   
+              <input type="text" class="form-control" id="auto" value="{{code}}" placeholder="Start writing..."/>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading" style="background-color:white; padding:0px;">
+                <span style="color:black;"><i>Related MMSGs:</i></span>
+            </div>
+            <div class="panel-body">
+
+                    <div id="result-container" class="panel list-group col-xs-{{12}} ">
+                      {% for word in results['msgs'] %}
+                        <span data-toggle="button" data-target="#id">
+                          <a href="#"  style="padding:5px;white-space: normal;" class="list-group-item btn" data-toggle="collapse" data-target="#s{{word[0]}}">
+                          <h5 class="proposta list-group-item-heading" style="text-align: left; margin:0px;"> {{ word[0] }} - {{ dictionary[word[0]]}} <span class="list-group-item-text" style="color:lightgray; font-style:italic;"> {{ word[1] }}</span></h5>  
+                          </a>
+                        </span>
+                      {% endfor %}
+                  </div>
+
+            </div>
+        </div>
+	 
+    </div>
+
+<div class="row">
+        <div class="panel panel-info">
+            <div class="panel-heading" style="background-color:white; padding:0px;">
+                <span style="color:black;"><i>Related FDEs:</i></span>
+            </div>
+            <div class="panel-body">
+
+                    <div id="result-container" class="panel list-group col-xs-{{12}} ">
+                      {% for word in results['fdes'] %}
+                        <span data-toggle="button" data-target="#id">
+                          <a href="#"  style="padding:5px;white-space: normal;" class="list-group-item btn" data-toggle="collapse" data-target="#s{{word[0]}}">
+                          <h5 class="proposta list-group-item-heading" style="text-align: left; margin:0px;">{{ word[0] }} - {{ dictionary[word[0]]}} <span class="list-group-item-text" style="color:lightgray; font-style:italic;"> {{ word[1] }}</span></h5>  
+                          </a>
+                        </span>
+                      {% endfor %}
+                  </div>
+
+            </div>
+        </div>
+   
+    </div>
+
+
+
+
+
+
+<script src="{{url_for('.static', filename='auto_filter.js')}}"></script>
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,122 @@
+.page-header {
+width:80%;
+margin:auto;
+}
+
+
+ .ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }
+  /* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+  * html .ui-autocomplete {
+    height: 100px;
+  }
+
+#auto {
+
+}
+
+.panel-success {
+  /*min-height: 290px*/
+}
+
+.chosen_code{
+  /*width:150px;*/
+  margin:2px;
+  float: left;
+  font-size:small;
+  padding:5px;
+}
+
+.centerdiv{
+  text-align: center;
+}
+
+.codes{
+  /*height: 60px;*/
+}
+
+.navbar-center
+{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+    margin: auto;
+  height:100%;
+}
+
+.stat-info span
+{
+  font-size: large;
+}
+
+.panel
+{
+  margin-bottom : 10px;
+}
+
+.navbar {
+  margin-bottom:10px;
+}
+
+.panel-body
+{
+  padding: 2px;
+}
+
+.highlighted
+{
+  color:#B22222;
+}
+
+
+a.list-group-item h5{
+   color:#4169E1 !important;
+  font-weight: 300;
+  font-size: medium;
+}
+a.list-group-item.active h5{
+   color:red !important;
+}
+
+.list-group-item.active{
+  color:red;
+  background-color:white;
+}
+
+.list-group-item.active:focus{
+  color:red;
+  background-color:white;
+} 
+
+.list-group-item.active:hover{
+    color:red;
+  background-color:white;
+}
+
+a.list-group-item:hover{
+  text-decoration: underline;
+
+}
+
+a.list-group-item{
+   border:0px;
+   background-color: #f5f5f5;
+}
+
+#result-container{
+    background-color: #f5f5f5;
+    margin-bottom:0px;
+}
+
+
+.container {
+  max-width: none !important; 
+}

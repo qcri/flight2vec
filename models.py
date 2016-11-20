@@ -1,0 +1,75 @@
+try:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+except ImportError:
+    pass
+
+import numpy as np
+############
+n = 300
+############
+
+from gensim.models.word2vec import Word2Vec
+import os
+
+DBNAME = os.environ['flight2vec_DBNAME']
+DBUSER = os.environ['flight2vec_DBUSER']
+DBPASS = os.environ['flight2vec_DBPASS']
+DBHOST = os.environ['flight2vec_DBHOST']
+
+
+db = pymysql.connect(host=DBHOST,user=DBUSER,passwd=DBPASS,db=DBNAME)
+c=db.cursor()
+query = """SELECT FDE_CODE as codice,`FDE Text` as descr FROM newdata group by FDE_CODE
+UNION
+SELECT MESSAGE_CODE as codice,`Message Text` as descr FROM newdata group by MESSAGE_CODE"""
+c.execute(query)
+result = c.fetchall()
+dictionary={item[0]:item[1].decode('latin1','ignore') for item in result}
+db.close()
+dictionary['exception']='Not enough data to find similar entities.'
+
+
+#This should be the right query but really slow for the random function which first
+#produce all the candidates diagnoses and than limit to 1
+#
+#SELECT id,diag FROM validation_diags where 
+#id not in 
+# (select diagnosi_id 
+# from diagnosi_has_icd9cm JOIN users on users.alias = diagnosi_has_icd9cm.users_alias 
+# WHERE users.alias = 'user-a' 
+# ) 
+# and id not in
+# (select diagnosi_id
+# from diagnosi_has_icd9cm 
+# group by diagnosi_id
+# having count(distinct users_alias)  > 2)
+# ORDER BY RAND() LIMIT 1;
+
+
+def filter_codes(text):
+	db = pymysql.connect(host='localhost',user='boeing',passwd='boeing001',db='boeing')
+	c=db.cursor()
+	query = """SELECT FDE_CODE as codice,`FDE Text` as descrizione FROM newdata where FDE_CODE like '"""  + text + """%' group by FDE_CODE LIMIT 500
+	UNION
+	SELECT MESSAGE_CODE as codice,`Message Text` as descrizione FROM newdata where MESSAGE_CODE like '""" + text + """%' group by MESSAGE_CODE LIMIT 500 """
+	c.execute(query)
+	result = c.fetchall()
+	lista=[item[0] + ": " + item[1].decode('latin1','ignore') for item in result]
+	db.close()
+	return lista
+
+def get_top(code,n=300):
+	model = Word2Vec.load('1leg_%dfeatures.w2v' % n)
+	results = dict()
+	results['fdes'] = [('exception',0)]
+	results['msgs'] = [('exception',0)]
+	try:
+		l = model.most_similar(positive=[code.replace(' ','_')],topn=200)
+	except:
+		return (results,dictionary)
+
+	results['fdes'] = [(x[0].replace('_',' '),x[1]) for x in l if x[0][3]=='_'][:10]
+	results['msgs'] = [x for x in l if x[0][3]!='_'][:10]
+	return (results,dictionary)
+
