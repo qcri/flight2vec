@@ -58,8 +58,9 @@ def similarity():
 	if 'auth' in session.keys():
 		if session['auth']==sessionsecret:
 			value = request.args.get('code')
+			title = request.args.get('title')
 			results,dictionary = models.get_top(value)
-			return render_template('index.html',results=results,code=value,dictionary=dictionary)
+			return render_template('index.html',results=results,code=value,title=title,dictionary=dictionary)
 		else:
 			return redirect('/login')
 	else:
