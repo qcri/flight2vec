@@ -30,23 +30,6 @@ db.close()
 dictionary['exception']='Not enough data to find similar entities.'
 
 
-#This should be the right query but really slow for the random function which first
-#produce all the candidates diagnoses and than limit to 1
-#
-#SELECT id,diag FROM validation_diags where 
-#id not in 
-# (select diagnosi_id 
-# from diagnosi_has_icd9cm JOIN users on users.alias = diagnosi_has_icd9cm.users_alias 
-# WHERE users.alias = 'user-a' 
-# ) 
-# and id not in
-# (select diagnosi_id
-# from diagnosi_has_icd9cm 
-# group by diagnosi_id
-# having count(distinct users_alias)  > 2)
-# ORDER BY RAND() LIMIT 1;
-
-
 def filter_codes(text):
 	db = pymysql.connect(host=DBHOST,user=DBUSER,passwd=DBPASS,db=DBNAME)
 	c=db.cursor()
@@ -60,7 +43,7 @@ def filter_codes(text):
 	return lista
 
 def get_top(code,n=300):
-	model = Word2Vec.load('1leg_%dfeatures.w2v' % n)
+	model = Word2Vec.load('flight2vec/1leg_%dfeatures.w2v' % n)
 	results = dict()
 	results['fdes'] = [('exception',0)]
 	results['msgs'] = [('exception',0)]

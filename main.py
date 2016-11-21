@@ -13,7 +13,6 @@ from time import sleep
 
 import json
 
-import retrieval
 
 import string
 import random
@@ -23,6 +22,7 @@ import sys
 import os
 
 PORT = os.environ['flight2vec_PORT']
+FORMSECRET = os.environ['flight2vec_FORMSECRET']
 
 def log(msg):
 	from datetime import datetime
@@ -36,6 +36,7 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 app.config["APPLICATION_ROOT"] = "/"
+app.config['SECRET_KEY'] = FORMSECRET
 sessionsecret = id_generator(size=10)
 
 
