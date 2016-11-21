@@ -7,7 +7,7 @@
           var title = ui.item.value.split(":")[1];
           $("#auto").val(code);
       		event.preventDefault();
-          location.href = "/similarity?code=" + code + "&title=" + title;
+          location.href = "/similarity?code=" + code + "&title='" + title + "'";
       		return false;}
      });
     });
