@@ -34,7 +34,12 @@
             </div>
 
             <div class="input-group" style="width: 70%;">   
+            {% if code %}
               <input type="text" class="form-control" id="auto" value="{{code}} {{title}}" placeholder="Start writing..."/>
+            {% else %}
+              <input type="text" class="form-control" id="auto" placeholder="Start writing..."/>
+
+            {% endif %}
             </div>
         </div>
 
