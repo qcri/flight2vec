@@ -43,7 +43,7 @@ def filter_codes(text):
 	return lista
 
 def get_top(code,n=300):
-	model = Word2Vec.load('flight2vec/1leg_%dfeatures.w2v' % n)
+	model = Word2Vec.load('flight2vec/1leg_%dfeatures_nonuisc.w2v' % n)
 	results = dict()
 	results['fdes'] = [('exception',0)]
 	results['msgs'] = [('exception',0)]
