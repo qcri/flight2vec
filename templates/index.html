@@ -29,11 +29,11 @@
 
         <div class="row">
          <div class="panel-body" >
-            <div style="width: 30%; float:left; margin-top: 6px;">
+            <div style="width: 10%; float:left; margin-top: 6px;">
               <span><i>Select an FDE or a MMSG</i></span>
             </div>
 
-            <div class="input-group" style="width: 70%;">   
+            <div class="input-group" style="width: 50%;">   
             {% if code %}
               <input type="text" class="form-control" id="auto" value="{{code}} {{title}}" placeholder="Start writing..."/>
             {% else %}
@@ -41,6 +41,20 @@
 
             {% endif %}
             </div>
+
+            <div style="width: 10%; float:left; margin-top: 6px;">
+              <span><i>Select an FDE or a MMSG</i></span>
+            </div>
+
+            <div class="input-group" style="width: 20%;">   
+              <select>
+                <option value="1leg_300features">Same leg co-occurrence</option>
+                <option value="1leg_300features_nonuisc">Same leg co-occurrence without nuiscance and high frequent</option>
+                <option value="3leg_300_prediction_nonuisc_samechap">3 Previous legs FDE prediction chapter sampling</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
         </div>
 
         <div class="panel panel-info">
