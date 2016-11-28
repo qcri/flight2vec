@@ -44,8 +44,8 @@ def filter_codes(text):
 
 def get_top(code,n=300):
 	#model = Word2Vec.load('flight2vec/3leg_%d_prediction_nonuisc_samechap.w2v' % n)
-
-	model = Word2Vec.load_word2vec_format('/home/srizzo/flight2vec/3leg_300_prediction_nonuisc_samechap.w2vector',fvocab='/home/srizzo/flight2vec/3leg_300_prediction_nonuisc_samechap.vocab')
+	#,fvocab='/home/srizzo/flight2vec/3leg_300_prediction_nonuisc_samechap.vocab'
+	model = Word2Vec.load_word2vec_format('/home/srizzo/flight2vec/3leg_300_prediction_nonuisc_samechap.w2vector')
 	results = dict()
 	results['fdes'] = [('exception',0)]
 	results['msgs'] = [('exception',0)]
